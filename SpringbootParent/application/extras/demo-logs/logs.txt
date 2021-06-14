@@ -1,0 +1,12 @@
+2020-12-15 10:58:14.529  INFO 16128 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2020-12-15 10:58:14.656  INFO 16128 --- [           main] c.s.kafka.SpringbootandKafkaApplication  : Started SpringbootandKafkaApplication in 5.87 seconds (JVM running for 8.334)
+2020-12-15 10:58:14.667  INFO 16128 --- [           main] c.s.kafka.SpringbootandKafkaApplication  : Springboot and kafka application is started successfully.
+2020-12-15 10:58:22.785  INFO 16128 --- [nio-9000-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+
+
+2020-12-15 10:58:23.077  INFO 16128 --- [nio-9000-exec-2] c.s.kafka.controller.KafkaController     : Sending message to kafka topic
+2020-12-15 10:58:23.078  INFO 16128 --- [nio-9000-exec-2] com.springboot.kafka.service.Producer    : Sending message to kafka = Employee(id=a1db7424-ae48-499b-bdaa-851a167ef849, firstname=Otha, lastname=Dooley, jobtitle=Product Group Facilitator, phone=483-411-1679)
+
+
+2020-12-15 10:58:23.259  INFO 16128 --- [ntainer#0-0-C-1] com.springboot.kafka.service.Consumer    : Consuming message.
+2020-12-15 10:58:23.259  INFO 16128 --- [ntainer#0-0-C-1] com.springboot.kafka.service.Consumer    : Employee(id=a1db7424-ae48-499b-bdaa-851a167ef849, firstname=Otha, lastname=Dooley, jobtitle=Product Group Facilitator, phone=483-411-1679)

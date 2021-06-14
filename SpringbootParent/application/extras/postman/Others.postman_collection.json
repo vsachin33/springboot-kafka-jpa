@@ -1,0 +1,41 @@
+{
+	"info": {
+		"_postman_id": "33f0574e-ec3b-44c3-9576-f9fce162feb7",
+		"name": "Others",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Kafka-controller (SpringbootandKafka)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"{{$guid}}\",\r\n    \"firstname\": \"{{$randomFirstName}}\",\r\n    \"lastname\": \"{{$randomLastName}}\",\r\n    \"jobtitle\": \"{{$randomJobTitle}}\",\r\n    \"phone\": \"{{$randomPhoneNumber}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/kafka/send",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"kafka",
+						"send"
+					]
+				},
+				"description": "Sending employee information to the kafka queue and consuming it"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

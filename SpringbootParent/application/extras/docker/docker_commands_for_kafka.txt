@@ -1,0 +1,13 @@
+-- command to run kafka on docker (in background mode)
+docker-compose -f <path_to_file>/docker-compose.yml up -d
+
+note - make sure to replace the <path_to_file> with the folder path where you have placed the 'docker-compose.yml' configuration file
+
+-- command to check if the kafka and zookeeper docker containers is started successfully or not
+docker ps -a
+
+-- command to stop the kafka and zookeeper docker containers
+docker stop kafka zookeeper
+
+-- command to remove the kafka and zookeeper docker containers
+docker rm kafka zookeeper
