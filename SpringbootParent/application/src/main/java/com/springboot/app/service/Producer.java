@@ -30,7 +30,7 @@ public class Producer {
 
     public void sendMessageToDriverTopic(final String message) {
         log.info("Sending message to kafka = {}", message);
-
+        /* 
         long t1 = System.currentTimeMillis();
         for (int lat = -20; lat <= 20; lat++) {
             for (int lon = -20; lon <= 20; lon++) {
@@ -39,6 +39,7 @@ public class Producer {
             log.info(lat + "");
         }
         log.info("Produce time: " + (System.currentTimeMillis() - t1)/1000.0 + "");
-        // kafkaTemplate.send(driverTopic, message);
+        */
+        kafkaTemplate.send(driverTopic, message);
     }
 }

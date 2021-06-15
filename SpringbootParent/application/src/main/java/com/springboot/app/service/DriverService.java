@@ -1,6 +1,7 @@
 package com.springboot.app.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -46,6 +47,9 @@ public class DriverService {
     	
     	return drivers;
     }
+    
+    
+    
 
     //@Cacheable("driversCache")
     //@CacheEvict(beforeInvocation = true)
@@ -104,11 +108,7 @@ public class DriverService {
     }
     
     
-    public static ConcurrentHashMap getConcurrentCache()
-    {
-    	return driverCacheMap;
-    }
-    	
+   
     
     
 }

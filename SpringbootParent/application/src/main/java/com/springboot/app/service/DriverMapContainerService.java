@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.springboot.app.model.Driver;
 import com.springboot.app.model.Store;
+import com.springboot.service.DistanceCalculator;
 
 @Service 
 public class DriverMapContainerService {
@@ -47,6 +48,15 @@ public class DriverMapContainerService {
         driverCacheMap.put(d.getDriverID(), d);
     }
 
+    public String[] findNearestDrivers(int numberOfDrivers, Store currStore )
+    {
+    	
+    	String[] result = DistanceCalculator.findDrivers(numberOfDrivers, getDistanceMap(currStore));
+        return result;
+    	
+    }
+    
+    
     public HashMap<String, Float> getDistanceMap(Store store) {
         HashMap<String, Float> distances = new HashMap<>();
 
