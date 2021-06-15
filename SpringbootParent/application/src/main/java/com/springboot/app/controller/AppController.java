@@ -1,7 +1,10 @@
 package com.springboot.app.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,11 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springboot.app.model.DriverMapContainer;
+import com.springboot.app.service.DriverMapContainerService;
 import com.springboot.app.model.Employee;
 import com.springboot.app.model.Store;
 import com.springboot.app.repository.StoreRepository;
 import com.springboot.app.service.Producer;
+import com.springboot.app.service.StoreService;
 import com.springboot.service.DistanceCalculator;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +34,13 @@ public class AppController {
 
     @Autowired
     private Producer producer;
+    
+    @Autowired
+    private StoreService storeService;
+    
+    
+    DriverMapContainerService driverMapContainerService = DriverMapContainerService.getInstance();
+    
 
     // URL - http://localhost:9000/api/send
     @ResponseStatus(value = HttpStatus.ACCEPTED)
@@ -58,12 +69,52 @@ public class AppController {
     // URL - http://localhost:9000/api/getDrivers
     @GetMapping("/getDrivers")
     @ResponseBody
-    public String[] getDriver(@RequestParam String storeId, @RequestParam int N) {
-        Store currStore = repository.findByStoreID(storeId).get(0);
+    public String[] getNearestDrivers(@RequestParam String storeId, @RequestParam int N) {
+        //Store currStore = repository.findByStoreID(storeId).get(0);
+    	String[] emptyArrayOfDrivers = new String[1];
+    	if (N > driverMapContainerService.getCacheSize())
+        	return  emptyArrayOfDrivers;
+        
+        
+    	List <Store> storeList = storeService.getStoreByStoreID(storeId);
+        // unique 
+    	Store currStore = storeList.get(0);
         long t1 = System.currentTimeMillis();
-    	String[] result = DistanceCalculator.findDrivers(N, DriverMapContainer.getInstance().getDistanceMap(currStore));
+    	String[] result = DistanceCalculator.findDrivers(N, driverMapContainerService.getDistanceMap(currStore));
         log.info((System.currentTimeMillis() - t1)/1000.0 + "");
 
         return result;
     }
+    
+    @GetMapping("/getNearestDrivers")
+    @ResponseBody
+    public ResponseEntity<String[]> getNearestDrivers2(@RequestParam String storeId, @RequestParam int N) {
+        //Store currStore = repository.findByStoreID(storeId).get(0);
+    	String[] emptyArrayOfDrivers = new String[1];;
+    	int totalDrivers = driverMapContainerService.getCacheSize();
+   
+    	emptyArrayOfDrivers[0] = "Number of requested Drivers are less than available drivers " + totalDrivers;
+
+    	if (N > driverMapContainerService.getCacheSize())
+    		return new ResponseEntity<>(
+    				emptyArrayOfDrivers, 
+    		          HttpStatus.BAD_REQUEST);  ;
+        
+        
+    	List <Store> storeList = storeService.getStoreByStoreID(storeId);
+        // unique 
+    	Store currStore = storeList.get(0);
+        long t1 = System.currentTimeMillis();
+    	String[] result = DistanceCalculator.findDrivers(N, driverMapContainerService.getDistanceMap(currStore));
+        log.info((System.currentTimeMillis() - t1)/1000.0 + "");
+
+        return new ResponseEntity<>(
+        	      result , 
+        	      HttpStatus.OK);
+    
+    }
+    	
+    
+    
+    
 }

@@ -20,6 +20,8 @@ public class DistanceCalculator {
 
 	}
 	
+	
+	// sorting the distances by value in hashmap
 	public static String[] findDrivers(int N, HashMap<String, Float> distances) {
 		ArrayList<ArrayList<Object>> data = new ArrayList<>();
 

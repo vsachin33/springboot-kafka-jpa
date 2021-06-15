@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.springboot.app.model.Driver;
-import com.springboot.app.model.DriverMapContainer;
+import com.springboot.app.service.DriverMapContainerService;
 import com.springboot.app.repository.DriverRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,8 +32,8 @@ public class Consumer {
         	
         	Gson deserializer = new Gson();
         	Driver driver = deserializer.fromJson(message, Driver.class);
-
-            DriverMapContainer.getInstance().addDriver(driver);
+            // Put in cache 
+            DriverMapContainerService.getInstance().addDriverToCache(driver);
             repository.save(driver);
         }
         catch(Exception e) {
