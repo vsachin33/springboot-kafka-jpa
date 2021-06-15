@@ -29,9 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AppController {
 
-    @Autowired
-    StoreRepository repository;
-
+    
     @Autowired
     private Producer producer;
     
@@ -42,13 +40,7 @@ public class AppController {
     DriverMapContainerService driverMapContainerService = DriverMapContainerService.getInstance();
     
 
-    // URL - http://localhost:9000/api/send
-    @ResponseStatus(value = HttpStatus.ACCEPTED)
-    @PostMapping(value = "/send")
-    public void send(@RequestBody final Employee employee) {
-        log.info("Sending message to kafka topic");
-        producer.sendMessageToTopic(employee.toString());
-    }
+    
 
     // URL - http://localhost:9000/api/updateDriver
     @ResponseStatus(value = HttpStatus.ACCEPTED)
@@ -59,17 +51,18 @@ public class AppController {
     }
 
     // URL - http://localhost:9000/api/addStore
-    @ResponseStatus(value = HttpStatus.ACCEPTED)
+    @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(value = "/addStore")
     public void addStore(@RequestBody final Store store) {
         log.info(store + " has been received.");
-        repository.save(store);
+        storeService.addStore(store);
+        
     }
     
     // URL - http://localhost:9000/api/getDrivers
     @GetMapping("/getDrivers")
     @ResponseBody
-    public String[] getNearestDrivers(@RequestParam String storeId, @RequestParam int N) {
+    public String[] getDrivers(@RequestParam String storeId, @RequestParam int N) {
         //Store currStore = repository.findByStoreID(storeId).get(0);
     	String[] emptyArrayOfDrivers = new String[1];
     	if (N > driverMapContainerService.getCacheSize())
@@ -86,26 +79,45 @@ public class AppController {
         return result;
     }
     
+   
+    	
+    
     @GetMapping("/getNearestDrivers")
     @ResponseBody
-    public ResponseEntity<String[]> getNearestDrivers2(@RequestParam String storeId, @RequestParam int N) {
+    public ResponseEntity<String[]> getNearestDrivers(@RequestParam String storeId, @RequestParam int N) {
         //Store currStore = repository.findByStoreID(storeId).get(0);
-    	String[] emptyArrayOfDrivers = new String[1];;
+    	String[] result = new String[1];;
     	int totalDrivers = driverMapContainerService.getCacheSize();
    
-    	emptyArrayOfDrivers[0] = "Number of requested Drivers are less than available drivers " + totalDrivers;
 
-    	if (N > driverMapContainerService.getCacheSize())
+    	if (N > driverMapContainerService.getCacheSize()) {
+        	result[0] = "Number of requested Drivers are less than available drivers " + totalDrivers;
+
     		return new ResponseEntity<>(
-    				emptyArrayOfDrivers, 
-    		          HttpStatus.BAD_REQUEST);  ;
+    				result, 
+    		          HttpStatus.BAD_REQUEST); 
+    	}
         
         
     	List <Store> storeList = storeService.getStoreByStoreID(storeId);
-        // unique 
+    	
+    	if (storeList == null || storeList.isEmpty()) {
+    		
+        	result[0] = "Store " + storeId + " not found";
+
+    		return new ResponseEntity<>(
+    				result, 
+    		          HttpStatus.BAD_REQUEST); 
+    	}        // unique 
+    	
+    	
+    
     	Store currStore = storeList.get(0);
+    	
         long t1 = System.currentTimeMillis();
-    	String[] result = DistanceCalculator.findDrivers(N, driverMapContainerService.getDistanceMap(currStore));
+    	result = driverMapContainerService.findNearestDrivers(N, currStore);
+    			
+    			//DistanceCalculator.findDrivers(N, driverMapContainerService.getDistanceMap(currStore));
         log.info((System.currentTimeMillis() - t1)/1000.0 + "");
 
         return new ResponseEntity<>(
@@ -114,7 +126,6 @@ public class AppController {
     
     }
     	
-    
     
     
 }

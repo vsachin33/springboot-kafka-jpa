@@ -14,7 +14,7 @@ public class StoreService {
     @Autowired
     private StoreRepository repository;
 
-    public Store saveStore(Store store) {
+    public Store addStore(Store store) {
         return repository.save(store);
     }
 

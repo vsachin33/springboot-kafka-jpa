@@ -26,7 +26,7 @@ public class Consumer {
 
     @KafkaListener(topics = "#{'${kafka.topic.name2:driver_location}'}", groupId = "group_id")
     public void consumeDriver(final String message) {
-        log.info("Consuming message.");
+        log.info("consumeDriver(): Consuming message.");
         log.info(message);
         try {
         	
