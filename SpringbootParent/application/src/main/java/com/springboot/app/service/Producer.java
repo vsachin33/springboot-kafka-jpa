@@ -1,7 +1,7 @@
 package com.springboot.app.service;
 
 import com.springboot.app.model.Driver;
-import com.springboot.app.model.DriverMapContainer;
+import com.springboot.app.service.DriverMapContainerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
