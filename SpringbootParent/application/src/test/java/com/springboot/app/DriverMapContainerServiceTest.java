@@ -48,7 +48,6 @@ public class DriverMapContainerServiceTest {
 	    String resultDriverId = "Not Found";
 	    if (result.length == 1)
 	    {
-         System.out.println("result size " + 1);
 		 resultDriverId = result[0];
 	    }
 		
