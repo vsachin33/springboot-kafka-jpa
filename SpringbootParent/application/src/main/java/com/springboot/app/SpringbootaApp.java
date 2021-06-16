@@ -3,6 +3,7 @@ package com.springboot.app;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +14,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @Slf4j
-@EnableScheduling
-@EnableSwagger2
+
+
+//@EnableSwagger2
 public class SpringbootaApp {
 
 	public static void main(String[] args) {

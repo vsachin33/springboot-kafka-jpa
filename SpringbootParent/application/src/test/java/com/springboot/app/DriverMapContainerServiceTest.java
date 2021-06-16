@@ -3,6 +3,10 @@ package com.springboot.app;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -52,20 +56,30 @@ public class DriverMapContainerServiceTest {
 	    }
 		
 		assertEquals(resultDriverId,"abc@gmail.com");
-	}
+	} 
+	
 	
 	/*
 	@Test
-	public void testFindTheGreatestFromAllData_ForOneValue() {
-		when(dataServiceMock.retrieveAllData()).thenReturn(new int[] { 15 });
-		assertEquals(15, businessImpl.findTheGreatestFromAllData());
-	}
+    public void testAddDriverWithConcurrency() throws InterruptedException {
+        int numberOfThreads = 10;
+        ExecutorService service = Executors.newFixedThreadPool(10);
+        CountDownLatch latch = new CountDownLatch(numberOfThreads);
 
-	@Test
-	public void testFindTheGreatestFromAllData_NoValues() {
-		when(dataServiceMock.retrieveAllData()).thenReturn(new int[] {});
-		assertEquals(Integer.MIN_VALUE, businessImpl.findTheGreatestFromAllData());
-	}
-	
+        
+        for (int i = 0; i < numberOfThreads; i++) {
+            service.execute(() -> {
+        	    
+            	String [] result = driverMapContainerService.findNearestDrivers(1, new Store ("1000",1.0f, -1.0f) );
+                Thread.sleep(1000);
+              
+            });
+        }
+        latch.await();
+       
+        assertEquals(numberOfThreads, counter.getCount());
+    }
 	*/
+	
+	
 }
