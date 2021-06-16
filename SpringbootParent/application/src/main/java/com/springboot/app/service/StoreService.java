@@ -32,6 +32,14 @@ public class StoreService {
     public List<Store> getStoreByStoreID(String storeId) {
         return repository.findByStoreID(storeId);
     } 
+    
+    
+    public void deleteStore(String id) {
+       repository.deleteById(id);
+        
+    } 
+    
+    
 }
 
    
@@ -39,7 +47,7 @@ public class StoreService {
     /*public String deleteStore(int id) {
         repository.deleteById(id);
         return "product removed !! " + id;
-    } */
+    } 
 
     /*
     public Store updateStore(Store store) {

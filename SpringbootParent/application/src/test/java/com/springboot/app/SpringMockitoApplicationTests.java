@@ -35,19 +35,24 @@ public class SpringMockitoApplicationTests {
 	
 	
 	
-	@Test
+@Test
 	public void updateDriverTest() throws Exception {
         
 		mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
 
         Driver driver = new Driver("ghg@gmail.com", 37.76f, -72.96f);
 		String jsonRequest = om.writeValueAsString(driver);
-		MvcResult result = mockMvc.perform(post("/api/updateDriver").content(jsonRequest)
+		MvcResult result = mockMvc.perform(post("/api/drivers").content(jsonRequest)
 				.contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isAccepted()).andReturn();
 		
 		Assertions.assertTrue(Boolean.TRUE);
 
+
 	}
+	
+	
+	
+	
 	
 	@Test
 	public void addStoreTest() throws Exception {
@@ -57,7 +62,7 @@ public class SpringMockitoApplicationTests {
 		
         Store store = new Store("5000", 30.76f, -72.96f);
 		String jsonRequest = om.writeValueAsString(store);
-		MvcResult result = mockMvc.perform(post("/api/addStore"
+		MvcResult result = mockMvc.perform(post("/api/stores"
 			).content(jsonRequest)
 				.contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isCreated()).andReturn();
 		
