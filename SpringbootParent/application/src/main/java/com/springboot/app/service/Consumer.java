@@ -18,13 +18,8 @@ public class Consumer {
     @Autowired
     DriverRepository repository;
 
-    @KafkaListener(topics = "#{'${kafka.topic.name:employees}'}", groupId = "group_id")
-    public void consume(final String message) {
-        log.info("Consuming message.");
-        log.info(message);
-    }
 
-    @KafkaListener(topics = "#{'${kafka.topic.name2:driver_location}'}", groupId = "group_id")
+    @KafkaListener(topics = "#{'${kafka.topic.name:driver_location}'}", groupId = "group_id")
     public void consumeDriver(final String message) {
         log.info("consumeDriver(): Consuming message.");
         log.info(message);

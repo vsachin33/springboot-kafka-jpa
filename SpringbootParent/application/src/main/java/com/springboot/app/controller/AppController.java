@@ -14,13 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springboot.app.service.DriverMapContainerService;
-import com.springboot.app.model.Employee;
 import com.springboot.app.model.Store;
-import com.springboot.app.repository.StoreRepository;
+import com.springboot.app.service.DriverMapContainerService;
 import com.springboot.app.service.Producer;
 import com.springboot.app.service.StoreService;
-import com.springboot.service.DistanceCalculator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -58,29 +55,7 @@ public class AppController {
         storeService.addStore(store);
         
     }
-    
-    // URL - http://localhost:9000/api/getDrivers
-    @GetMapping("/getDrivers")
-    @ResponseBody
-    public String[] getDrivers(@RequestParam String storeId, @RequestParam int N) {
-        //Store currStore = repository.findByStoreID(storeId).get(0);
-    	String[] emptyArrayOfDrivers = new String[1];
-    	if (N > driverMapContainerService.getCacheSize())
-        	return  emptyArrayOfDrivers;
-        
-        
-    	List <Store> storeList = storeService.getStoreByStoreID(storeId);
-        // unique 
-    	Store currStore = storeList.get(0);
-        long t1 = System.currentTimeMillis();
-    	String[] result = DistanceCalculator.findDrivers(N, driverMapContainerService.getDistanceMap(currStore));
-        log.info((System.currentTimeMillis() - t1)/1000.0 + "");
-
-        return result;
-    }
-    
-   
-    	
+        	
     
     @GetMapping("/getNearestDrivers")
     @ResponseBody
@@ -116,7 +91,6 @@ public class AppController {
     	
         long t1 = System.currentTimeMillis();
     	result = driverMapContainerService.findNearestDrivers(N, currStore);
-    			
     			//DistanceCalculator.findDrivers(N, driverMapContainerService.getDistanceMap(currStore));
         log.info((System.currentTimeMillis() - t1)/1000.0 + "");
 

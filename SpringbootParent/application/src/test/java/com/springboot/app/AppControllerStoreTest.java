@@ -16,7 +16,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.springboot.app.controller.AppController;
 import com.springboot.app.model.Store;
 import com.springboot.app.service.StoreService;
-import com.springboot.app.service.DriverService;
 
 //@RunWith(SpringRunner.class)
 @SpringBootTest

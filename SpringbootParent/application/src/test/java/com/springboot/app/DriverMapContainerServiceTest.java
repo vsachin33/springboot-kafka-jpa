@@ -3,23 +3,16 @@ package com.springboot.app;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.springboot.app.model.Driver;
 import com.springboot.app.model.Store;
 import com.springboot.app.service.DriverMapContainerService;
 import com.springboot.app.service.DriverService;
 import com.springboot.app.service.StoreService;
-import com.sun.el.stream.Optional;
 
 
 

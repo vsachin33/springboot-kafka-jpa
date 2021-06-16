@@ -14,19 +14,13 @@ public class Producer {
 
     // reading the property from the application.yml file
     // if value is not specified it will pick up the default value as "employees"
-    @Value("${kafka.topic.name:employees}")
-    private String topic;
 
-    @Value("${kafka.topic.name2:driver_location}")
+    @Value("${kafka.topic.name:driver_location}")
     private String driverTopic;
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
-    public void sendMessageToTopic(final String message) {
-        log.info("Sending message to kafka = {}", message);
-        kafkaTemplate.send(topic, message);
-    }
 
     public void sendMessageToDriverTopic(final String message) {
         log.info("Sending message to kafka = {}", message);

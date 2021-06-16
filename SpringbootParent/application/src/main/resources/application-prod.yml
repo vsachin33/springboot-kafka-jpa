@@ -23,5 +23,4 @@ spring:
     show-sql: true
 kafka:
   topic:
-    name: employees
-    name2: driver_location
+    name: driver_location
