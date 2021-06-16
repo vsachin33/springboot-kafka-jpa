@@ -43,6 +43,10 @@ public class DriverMapContainerService {
     public void addDriverToCache(Driver d) {
         driverCacheMap.put(d.getDriverID(), d);
     }
+    
+    public Driver getDriverFromCache(String driverID) {
+    	return driverCacheMap.get(driverCacheMap.get(driverID));
+    }
 
     public String[] findNearestDrivers(int numberOfDrivers, Store currStore )
     {
@@ -77,9 +81,15 @@ public class DriverMapContainerService {
     }
     
     
+    public void removeDriverFromCache(String driverID) {
+    	driverCacheMap.remove(driverID);
+    }
+    
     public int getCacheSize() {
     	return driverCacheMap.size(); 	
     }
+    
+    
     
     
     
