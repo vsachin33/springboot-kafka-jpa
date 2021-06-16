@@ -18,7 +18,7 @@ public class DriverService {
     
 	
 
-	public static ConcurrentHashMap<String, Driver> driverCacheMap = new ConcurrentHashMap<String, Driver>(); 
+	protected static final ConcurrentHashMap<String, Driver> driverCacheMap = new ConcurrentHashMap<String, Driver>(); 
 	
 	@Autowired
     private DriverRepository repository;

@@ -8,6 +8,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 
 @Service
@@ -21,8 +22,8 @@ public class DistanceCalculator {
 	}
 	
 	
-	// sorting the distances by value in hashmap
-	public static String[] findDrivers(int N, HashMap<String, Float> distances) {
+	// sorting the distances by value in map
+	public static String[] findDrivers(int N, Map<String, Float> distances) {
 		ArrayList<ArrayList<Object>> data = new ArrayList<>();
 
 		for (String driverId : distances.keySet()) {

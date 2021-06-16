@@ -2,6 +2,7 @@ package com.springboot.app.service;
 
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Service;
@@ -35,12 +36,7 @@ public class DriverMapContainerService {
                 }
             }
         }
-    	
-    	if (instance == null){
-            instance = new DriverMapContainerService();
-        }
         
-
         return instance;
     }
 
@@ -57,8 +53,8 @@ public class DriverMapContainerService {
     }
     
     
-    public HashMap<String, Float> getDistanceMap(Store store) {
-        HashMap<String, Float> distances = new HashMap<>();
+    public Map<String, Float> getDistanceMap(Store store) {
+        Map<String, Float> distances = new HashMap<>();
 
         for (String driverId : driverCacheMap.keySet()) {
             Driver currDriver = driverCacheMap.get(driverId);
